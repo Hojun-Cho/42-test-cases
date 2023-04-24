@@ -598,6 +598,8 @@ static void test_outrange()
 	ASSERT_PRINTF("%.3s %040s %.2s   %.2s  %-20u   %012d ",printf_buff, ftprintf_buff, d1, d2 , r1, r2,
 			"123213123", "!@#!@#!@#!@#@!#!@#!", "", "\n123\n", UINT_MAX,  INT_MAX);
 	ASSERT_PRINTF("hello %",printf_buff, ftprintf_buff, d1, d2 , r1, r2,NULL);
+	ASSERT_PRINTF("%",printf_buff, ftprintf_buff, d1, d2 , r1, r2,NULL);
+
 
 }
 
