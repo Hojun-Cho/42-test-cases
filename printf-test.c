@@ -27,7 +27,7 @@ int fd[2];
 
 #define ASSERT_STRING_EUAL(fmt, a, b, d1, d2) \
 	if (DEBUG)\
-	    cout("input:'%s'\n	expected ===> '%s'\n	actual   ===> '%s'\n",fmt, a, b);	\
+		cout("input:'%s'\n	expected %d===> '%s'\n	actual   %d===> '%s'\n",fmt, d1, a, d2, b);	\
 	if ((d1 != d2) || strlen(a) != strlen(b) || memcmp(a,b,strlen(a)  + 1) != 0)\
 	{\
 		cout("[  ERROR   ]:%d '%s'\n    expected: %d '%s'\n      actual: %d '%s'\n",__LINE__,fmt,d1,a, d2,b); \
@@ -602,7 +602,17 @@ static void test_outrange()
 
 
 }
+static void test_eval()
+{
+	char		printf_buff[314745];
+	char		ftprintf_buff[314745];
+	long		r1 = 0, r2 = 0;
+	int			d1, d2;
+	
+	ASSERT_PRINTF("%#x",printf_buff, ftprintf_buff, d1, d2 , r1, r2,
+					123);
 
+}
 #include <stdlib.h>
 #include <assert.h>
 #include <fcntl.h>
@@ -622,6 +632,8 @@ int main()
 	INVOKE_TEST(test_x);
 	INVOKE_TEST(test_X);
 	INVOKE_TEST(test_outrange);
+	INVOKE_TEST(test_eval);
+
 }	
 	
 
