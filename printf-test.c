@@ -11,11 +11,10 @@
 #include <limits.h>
 #include <errno.h>
 #include <stdlib.h>
+#include "ft_printf.h"
 
-int	ft_fprintf(int fd, const char *fmt, ...);
-int	ft_printf(const char *fmt, ...);
 int fd[2];
-
+#define DEBUG		1
 #define READ		0
 #define WRITE		1
 #define ERROR		2
@@ -73,7 +72,7 @@ static void test_d()
 	char		printf_buff[0xF00];
 	char		ftprintf_buff[0xF00];
 	long		r1 = 0, r2 = 0;
-	int			d1, d2; //d1 
+	int			d1, d2; //d1
 
 	ASSERT_PRINTF("% d",printf_buff, ftprintf_buff, d1, d2 , r1, r2,0);
 	ASSERT_PRINTF("%+d",printf_buff, ftprintf_buff, d1, d2 , r1, r2,0);
@@ -142,10 +141,10 @@ static void test_d()
 	ASSERT_PRINTF("%12.10d",printf_buff, ftprintf_buff, d1, d2 , r2, r2, INT_MAX);
 	ASSERT_PRINTF("%12.14d",printf_buff, ftprintf_buff, d1, d2 , r2, r2, INT_MAX);
 	ASSERT_PRINTF("%14.10d",printf_buff, ftprintf_buff, d1, d2 , r2, r2, INT_MAX);
-	
+
 	ASSERT_PRINTF("%-20.3d",printf_buff, ftprintf_buff, d2, d2 , r2, r2, INT_MAX);
 	ASSERT_PRINTF("%-31.20d",printf_buff, ftprintf_buff, d2, d2 , r2, r2, INT_MAX);
-	
+
 	ASSERT_PRINTF("%+-10.0d",printf_buff, ftprintf_buff, d2, d2 , r2, r2, INT_MAX);
 	ASSERT_PRINTF("%+-10.2d",printf_buff, ftprintf_buff, d2, d2 , r2, r2, INT_MAX);
 	ASSERT_PRINTF("%+-10.11d",printf_buff, ftprintf_buff, d2, d2 , r2, r2, INT_MAX);
@@ -169,37 +168,37 @@ static void test_d()
 	ASSERT_PRINTF("%.1d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
 	ASSERT_PRINTF("%.2d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
 	ASSERT_PRINTF("%.3d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
-	
+
     ASSERT_PRINTF("%.0d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%.1d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%.1dX",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%.11d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%.12d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
-                       
+
     ASSERT_PRINTF("%-d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%-0d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%-1d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%-10d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%-11d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%-12d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
-                       
+
     ASSERT_PRINTF("%-d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 1236717);
     ASSERT_PRINTF("%-0d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 21323);
     ASSERT_PRINTF("%-1d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, -1);
     ASSERT_PRINTF("%-10d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, -1234567801);
-                       
-                       
+
+
     ASSERT_PRINTF("%-.0d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
     ASSERT_PRINTF("%-.1d",printf_buff, ftprintf_buff, d1, d2 , r1, r2,0);
     ASSERT_PRINTF("%-.2d",printf_buff, ftprintf_buff, d1, d2 , r1, r2,	0);
     ASSERT_PRINTF("%-.3d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
-                       
-                       
+
+
     ASSERT_PRINTF("%-1.0d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
     ASSERT_PRINTF("%-2.1d",printf_buff, ftprintf_buff, d1, d2 , r1, r2,0);
     ASSERT_PRINTF("%-3.2d",printf_buff, ftprintf_buff, d1, d2 , r1, r2,	0);
     ASSERT_PRINTF("%-4.3d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
-                       
+
     ASSERT_PRINTF("%-1.0d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, -1233);
     ASSERT_PRINTF("%-2.1d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, -14121412);
     ASSERT_PRINTF("%-3.2d",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 12315415)
@@ -215,7 +214,7 @@ static void test_u()
 	char		printf_buff[0xF00];
 	char		ftprintf_buff[0xF00];
 	long		r1 = 0, r2 = 0;
-	int			d1, d2; //d1 
+	int			d1, d2; //d1
 
 	ASSERT_PRINTF("%u",printf_buff, ftprintf_buff, d1, d2 , r1, r2,0);
 	ASSERT_PRINTF("%u",printf_buff, ftprintf_buff, d1, d2 , r1, r2,UINT_MAX);
@@ -250,7 +249,7 @@ static void test_u()
 
 	ASSERT_PRINTF("%1.3u",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
 	ASSERT_PRINTF("%1.3u",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
-	
+
 	ASSERT_PRINTF("%20.3u",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
 	ASSERT_PRINTF("%20.3u",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
 
@@ -259,7 +258,7 @@ static void test_u()
 	ASSERT_PRINTF("%30.5u",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
 
 	ASSERT_PRINTF("%-30.5u",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
-	
+
 	ASSERT_PRINTF("%-10.0u",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 10);
 	ASSERT_PRINTF("%-10.1u",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 19);
 
@@ -270,7 +269,7 @@ static void test_u()
 	ASSERT_PRINTF("%-+0100u",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
 	ASSERT_PRINTF("%#-+2u",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 123);
 	ASSERT_PRINTF("%#-+2u",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 123);
-	
+
 }
 
 
@@ -285,6 +284,7 @@ static void test_percent()
 	ASSERT_PRINTF("%3%",printf_buff, ftprintf_buff, d1, d2 , r1, r2);
 	ASSERT_PRINTF("%03%",printf_buff, ftprintf_buff, d1, d2 , r1, r2);
 	ASSERT_PRINTF("%-3%",printf_buff, ftprintf_buff, d1, d2 , r1, r2);
+	ASSERT_PRINTF("%-05%",printf_buff, ftprintf_buff, d1, d2, r1, r2);
 	ASSERT_PRINTF("%.3%",printf_buff, ftprintf_buff, d1, d2 , r1, r2);
 	ASSERT_PRINTF("%.0%",printf_buff, ftprintf_buff, d1, d2 , r1, r2);
 	ASSERT_PRINTF("%0%",printf_buff, ftprintf_buff, d1, d2 , r1, r2);
@@ -296,8 +296,9 @@ static void test_s()
 	char		printf_buff[0xF00];
 	char		ftprintf_buff[0xF00];
 	long		r1 = 0, r2 = 0;
-	int			d1, d2; //d1 
+	int			d1, d2; //d1
 
+	ASSERT_PRINTF("%s",printf_buff, ftprintf_buff, d1, d2 , r1, r2,0);
 	ASSERT_PRINTF("%s",printf_buff, ftprintf_buff, d1, d2 , r1, r2,"");
 	ASSERT_PRINTF("%.s",printf_buff, ftprintf_buff, d1, d2 , r1, r2,"");
 	ASSERT_PRINTF("%.0s",printf_buff, ftprintf_buff, d1, d2 , r1, r2,"");
@@ -317,11 +318,20 @@ static void test_s()
 	ASSERT_PRINTF("%-2s",printf_buff, ftprintf_buff, d1, d2 , r1, r2,"abc");
 	ASSERT_PRINTF("%-3s",printf_buff, ftprintf_buff, d1, d2 , r1, r2,"abc");
 	ASSERT_PRINTF("%-4s",printf_buff, ftprintf_buff, d1, d2 , r1, r2,"abc");
-	
+
 	ASSERT_PRINTF("%10s",printf_buff, ftprintf_buff, d1, d2 , r1, r2,"abc");
 	ASSERT_PRINTF("%	s",printf_buff, ftprintf_buff, d1, d2 , r1, r2,"abc");
 	ASSERT_PRINTF("%	s	s",printf_buff, ftprintf_buff, d1, d2 , r1, r2,"abc");
 	ASSERT_PRINTF("%\vs\t\ns",printf_buff, ftprintf_buff, d1, d2 , r1, r2,"abc");
+	ASSERT_PRINTF("% s", printf_buff, ftprintf_buff, d1, d2, r1, r2, "");
+	ASSERT_PRINTF(" % 1s", printf_buff, ftprintf_buff, d1, d2, r1, r2, "");
+	ASSERT_PRINTF("% 1s ", printf_buff, ftprintf_buff, d1, d2, r1, r2, "");
+	ASSERT_PRINTF(" % s ", printf_buff, ftprintf_buff, d1, d2, r1, r2, "");
+	ASSERT_PRINTF(" % s ", printf_buff, ftprintf_buff, d1, d2, r1, r2, "-");
+	ASSERT_PRINTF(" % s % s ", printf_buff, ftprintf_buff, d1, d2, r1, r2, "", "-");
+	ASSERT_PRINTF(" % s % s ", printf_buff, ftprintf_buff, d1, d2, r1, r2, " - ", "");
+	ASSERT_PRINTF(" % s % s % s % s ", printf_buff, ftprintf_buff, d1, d2, r1, r2, " - ", "", "4", "");
+	ASSERT_PRINTF(" % s % s % s % s % s ", printf_buff, ftprintf_buff, d1, d2, r1, r2, " - ", "", "4", "", "2 ");
 }
 
 static void test_c()
@@ -329,7 +339,7 @@ static void test_c()
 	char		printf_buff[0xF00];
 	char		ftprintf_buff[0xF00];
 	long		r1 = 0, r2 = 0;
-	int			d1, d2; //d1 
+	int			d1, d2; //d1
 
 
 		for (unsigned char i = 0; i < 126; i++)
@@ -337,9 +347,9 @@ static void test_c()
 			ASSERT_PRINTF("%c",printf_buff, ftprintf_buff, d1, d2 , r1, r2, i);
 		}
 		ASSERT_PRINTF("%30c",printf_buff, ftprintf_buff, d1, d2 , r1, r2, '#');
-	
+
 		ASSERT_PRINTF("%-30c",printf_buff, ftprintf_buff, d1, d2 , r1, r2, '#');
-		 
+
 		ASSERT_PRINTF("%#c",printf_buff, ftprintf_buff, d1, d2 , r1, r2, '#');
 		ASSERT_PRINTF("%.30c",printf_buff, ftprintf_buff, d1, d2 , r1, r2, '#');
 		ASSERT_PRINTF("%-30c",printf_buff, ftprintf_buff, d1, d2 , r1, r2, '#');
@@ -351,15 +361,15 @@ static void test_p()
 	char		printf_buff[0xF00];
 	char		ftprintf_buff[0xF00];
 	long		r1 = 0, r2 = 0;
-	int			d1, d2; //d1 
+	int			d1, d2; //d1
 
 	int x = 100;
 	ASSERT_PRINTF("%p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
 	ASSERT_PRINTF("%p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
 	ASSERT_PRINTF("%p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, (size_t)-1);
 	ASSERT_PRINTF("%p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, &x);
-	
-	
+
+
 	ASSERT_PRINTF("%3p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, &x);
 	ASSERT_PRINTF("%0p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, &x);
 	ASSERT_PRINTF("%.30p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, &x);
@@ -368,11 +378,11 @@ static void test_p()
 	ASSERT_PRINTF("%.2p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, &x);
 	ASSERT_PRINTF("%.3p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, &x);
 	ASSERT_PRINTF("%.3p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, (unsigned) -1);
-	
+
 	ASSERT_PRINTF("%03p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, (unsigned) -1);
 	ASSERT_PRINTF("%00p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, (unsigned) -1);
 	ASSERT_PRINTF("%50p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, (unsigned) -1);
-	
+
 	ASSERT_PRINTF("%0p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, (unsigned) -1);
 	ASSERT_PRINTF("%1p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, (unsigned) -1);
 	ASSERT_PRINTF("%10p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, (unsigned) -1);
@@ -384,11 +394,12 @@ static void test_p()
 	ASSERT_PRINTF("%-1p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, (unsigned) -1);
 	ASSERT_PRINTF("%-10p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, (unsigned) -1);
 	ASSERT_PRINTF("%-11p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, (unsigned) -1);
-	
+
 
 	ASSERT_PRINTF("%+p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, (unsigned) -1);
 	ASSERT_PRINTF("% p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, (unsigned) -1);
 	ASSERT_PRINTF("%-100p",printf_buff, ftprintf_buff, d1, d2 , r1, r2, (unsigned) -1);
+
 }
 
 
@@ -397,7 +408,7 @@ static void test_i()
 	char		printf_buff[0xF00];
 	char		ftprintf_buff[0xF00];
 	long		r1 = 0, r2 = 0;
-	int			d1, d2; //d1 
+	int			d1, d2; //d1
 
 	ASSERT_PRINTF("%i",printf_buff, ftprintf_buff, d1, d2 , r1, r2,0);
 	ASSERT_PRINTF("%+i",printf_buff, ftprintf_buff, d1, d2 , r1, r2,0);
@@ -436,10 +447,10 @@ static void test_i()
 	ASSERT_PRINTF("%12.10i",printf_buff, ftprintf_buff, d1, d2 , r2, r2, INT_MAX);
 	ASSERT_PRINTF("%12.14i",printf_buff, ftprintf_buff, d1, d2 , r2, r2, INT_MAX);
 	ASSERT_PRINTF("%14.10i",printf_buff, ftprintf_buff, d1, d2 , r2, r2, INT_MAX);
-	
+
 	ASSERT_PRINTF("%-20.31i",printf_buff, ftprintf_buff, d2, d2 , r2, r2, INT_MAX);
 	ASSERT_PRINTF("%-31.20i",printf_buff, ftprintf_buff, d2, d2 , r2, r2, INT_MAX);
-	
+
 	ASSERT_PRINTF("%+-10.0i",printf_buff, ftprintf_buff, d2, d2 , r2, r2, INT_MAX);
 	ASSERT_PRINTF("%+-10.2i",printf_buff, ftprintf_buff, d2, d2 , r2, r2, INT_MAX);
 	ASSERT_PRINTF("%+-10.11i",printf_buff, ftprintf_buff, d2, d2 , r2, r2, INT_MAX);
@@ -469,7 +480,7 @@ static void test_x()
 	ASSERT_PRINTF("%.1x",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
 	ASSERT_PRINTF("%.2x",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
 	ASSERT_PRINTF("%.3x",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
-	
+
 	ASSERT_PRINTF("%.0x",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
 	ASSERT_PRINTF("%.1x",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
 	ASSERT_PRINTF("%.10x",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
@@ -508,6 +519,10 @@ static void test_x()
 
 	ASSERT_PRINTF("%#x",printf_buff, ftprintf_buff, d1, d2 , r1, r2, LONG_MAX);
 	ASSERT_PRINTF("%#x",printf_buff, ftprintf_buff, d1, d2 , r1, r2, LONG_MIN);
+
+	ASSERT_PRINTF("\\!/%0#32x\\!/",printf_buff, ftprintf_buff, d1, d2, r1, r2, -1096181409);
+	ASSERT_PRINTF("^.^/%0#18x^.^/",printf_buff, ftprintf_buff, d1, d2, r1, r2, 0);
+	ASSERT_PRINTF("!%#08x!",printf_buff, ftprintf_buff, d1, d2, r1, r2, 4562634224);
 }
 
 
@@ -531,37 +546,37 @@ static void test_X()
 	ASSERT_PRINTF("%.1X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
 	ASSERT_PRINTF("%.2X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
 	ASSERT_PRINTF("%.3X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
-	
+
     ASSERT_PRINTF("%.0X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%.1X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%.10X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%.11X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%.12X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
-                       
+
     ASSERT_PRINTF("%-X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%-0X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%-1X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%-10X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%-11X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%-12X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
-                       
+
     ASSERT_PRINTF("%-X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
     ASSERT_PRINTF("%-0X",printf_buff, ftprintf_buff, d1, d2 , r1, r2,0);
     ASSERT_PRINTF("%-1X",printf_buff, ftprintf_buff, d1, d2 , r1, r2,	0);
     ASSERT_PRINTF("%-10X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
-                       
-                       
+
+
     ASSERT_PRINTF("%-.0X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
     ASSERT_PRINTF("%-.1X",printf_buff, ftprintf_buff, d1, d2 , r1, r2,0);
     ASSERT_PRINTF("%-.2X",printf_buff, ftprintf_buff, d1, d2 , r1, r2,	0);
     ASSERT_PRINTF("%-.3X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
-                       
-                       
+
+
     ASSERT_PRINTF("%-1.0X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
     ASSERT_PRINTF("%-2.1X",printf_buff, ftprintf_buff, d1, d2 , r1, r2,0);
     ASSERT_PRINTF("%-3.2X",printf_buff, ftprintf_buff, d1, d2 , r1, r2,	0);
     ASSERT_PRINTF("%-4.3X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 0);
-                       
+
     ASSERT_PRINTF("%-1.0X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%-2.1X",printf_buff, ftprintf_buff, d1, d2 , r1, r2, UINT_MAX);
     ASSERT_PRINTF("%-3.2X",printf_buff, ftprintf_buff, d1, d2 , r1, r2,	UINT_MAX)
@@ -579,7 +594,7 @@ static void test_outrange()
 	char		ftprintf_buff[314745];
 	long		r1 = 0, r2 = 0;
 	int			d1, d2;
-	
+
 	ASSERT_PRINTF("%c\n%d    %s",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 'a', INT_MIN, "ASDASGAGAXCVXCVFQQWRGVBJHNKJZXCHIQGIUFDQWHUDHQWIDUHASKJDHABSJKHVCZXCVKJLHGEKIWQEDGHSKJ");
 
 	ASSERT_PRINTF("%p %c\n%d    %s",printf_buff, ftprintf_buff, d1, d2 , r1, r2, 'a',(size_t)-1, INT_MIN, "ASDASGAGAXCVXCVFQQWRGVBJHNKJZXCHIQGIUFDQWHUDHQWIDUHASKJDHABSJKHVCZXCVKJLHGEKIWQEDGHSKJ");
@@ -594,7 +609,7 @@ static void test_outrange()
 
 
 	ASSERT_PRINTF("%u\n\v %p %s %d          asdfsadf  asdfasdf  123",printf_buff, ftprintf_buff, d1, d2 , r1, r2, (size_t)-1, INT_MIN,  "ASDASGAGAXCVXCVFQQWRGVBJHNKJZXCHIQGIUFDQWHUDHQWIDUHASKJDHABSJKHVCZXCVKJLHGEKIWQEDGHSKJ", INT_MIN);
-	
+
 	ASSERT_PRINTF("%.3s %040s %.2s   %.2s  %-20u   %012d ",printf_buff, ftprintf_buff, d1, d2 , r1, r2,
 			"123213123", "!@#!@#!@#!@#@!#!@#!", "", "\n123\n", UINT_MAX,  INT_MAX);
 	ASSERT_PRINTF("hello %",printf_buff, ftprintf_buff, d1, d2 , r1, r2,NULL);
@@ -608,7 +623,7 @@ static void test_eval()
 	char		ftprintf_buff[314745];
 	long		r1 = 0, r2 = 0;
 	int			d1, d2;
-	
+
 	ASSERT_PRINTF("%#x",printf_buff, ftprintf_buff, d1, d2 , r1, r2,
 					123);
 
@@ -625,16 +640,14 @@ int main()
 	INVOKE_TEST(test_d);
 	INVOKE_TEST(test_i);
 	INVOKE_TEST(test_u);
-	INVOKE_TEST(test_percent);
-	INVOKE_TEST(test_s);
-	INVOKE_TEST(test_c);
 	INVOKE_TEST(test_p);
 	INVOKE_TEST(test_x);
 	INVOKE_TEST(test_X);
+	INVOKE_TEST(test_percent);
+	INVOKE_TEST(test_s);
+	INVOKE_TEST(test_c);
 	INVOKE_TEST(test_outrange);
 	INVOKE_TEST(test_eval);
 
-}	
-	
-
+}
 
