@@ -14,7 +14,7 @@
 #include "ft_printf.h"
 
 int fd[2];
-#define DEBUG		1
+#define DEBUG		0
 #define READ		0
 #define WRITE		1
 #define ERROR		2
